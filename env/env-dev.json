@@ -1,0 +1,31 @@
+{
+    "environment": "DEVELOPMENT",
+    "serverPort": 1234,
+    "projects": {
+        "ifams": {
+            "v1": {
+                "apiName" : "/api/ifams/v1"
+            }
+        }
+    },
+    "connections": {
+        "postgresql": {
+            "ifams": {
+                "user": "postgres",
+                "host": "localhost",
+                "database": "ifams",
+                "password": "root",
+                "port": 5432
+            }
+        },
+        "mysql": {
+            "ifams": {
+                "user": "postgres",
+                "host": "localhost",
+                "database": "ifams",
+                "password": "abc123",
+                "port": 5432
+            }
+        }
+    }
+}

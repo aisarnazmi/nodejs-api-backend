@@ -1,0 +1,27 @@
+{
+    "environment": "DEVELOPMENT",
+    "serverPort": 1234,
+    "projects": {
+        "ifams": {
+            "v1": {
+                "apiName" : "<API_NAME>"
+            }
+        },
+        "myApp": {
+            "v1": {
+                "apiName" : "<API_NAME>"
+            }
+        }
+    },
+    "connections": {
+        "postgresql": {
+            "ifams": {
+                "user": "<USER>",
+                "host": "<HOST_NAME>",
+                "database": "<DATABASE_NAME>",
+                "password": "<PASSWORD>",
+                "port": 5432
+            }
+        }
+    }
+}
