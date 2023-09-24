@@ -56,15 +56,13 @@ const getValues = async (req, res) => {
 
 }
 
-const getValue = async (id, vote, res) => {
-
+const getValue = async (id, res) => {
     let resp;
-
     try {
-        // resp = await PgHandler.query('SELECT * FROM public.aset_maklumat WHERE id = $1', [id]);
+        resp = await PgHandler.query('SELECT * FROM public.aset_maklumat WHERE id = $1', [id]);
 
         // example deal with multiple value condition
-        resp = await PgHandler.query('SELECT * FROM public.aset_maklumat WHERE id = $1 AND vote = $2', [id, vote]);
+        // resp = await PgHandler.query('SELECT * FROM public.aset_maklumat WHERE id = $1 AND vote = $2', [id, vote]);
         // mysql
         // resp = await PgHandler.query('SELECT * FROM public.aset_maklumat WHERE id = ? AND vote = ? ', [id, vote]);
     } catch (err) {
@@ -73,7 +71,7 @@ const getValue = async (id, vote, res) => {
     }
 
     if(resp.rowCount === 0) {
-        console.log('[WARN] Asset not found.: postgresql');
+        console.log('[WARN] Asset not found: postgresql');
         return ResponseHandler.generateNotFoundError(res, 'Asset not found.');
     }
 
@@ -81,8 +79,13 @@ const getValue = async (id, vote, res) => {
 
     const responseData = {
         id: values.id,
-        name: values.nama_aset,
-        qrCode: values.barcode
+        barcode: values.barcode,
+        nama_aset: values.nama_aset,
+        model: values.model,
+        jenama: values.jenama,
+        harga: values.harga,
+        lokasi: values.lokasi,
+        nokppemilik: values.nokppemilik
     }
 
     return ResponseHandler.generateSuccess(res, 'Successfully retrieved values!', responseData);
@@ -163,10 +166,30 @@ const updateValue = async (value, id, res) => {
     return ResponseHandler.generateSuccess(res, 'Successfully updated values!', responseData);
 }
 
+const deleteValue = async (id, res) => {
+    let resp;
+    
+    try {
+        resp = await PgHandler.query('DELETE FROM public.aset_maklumat WHERE id = $1', [id]);
+    } catch (err) {
+        console.log('[ERROR] An unexpected error had occured: postgresql');
+        return ResponseHandler.generateError(res, 'An unexpected error had occured');
+    }
+
+    if(resp.rowCount === 0) {
+        console.log('[WARN] Asset not found: postgresql');
+        return ResponseHandler.generateNotFoundError(res, 'Asset not found.');
+    }
+
+    return ResponseHandler.generateSuccess(res, 'Successfully delete values!');
+
+}
+
 module.exports = {
     test:test,
     getValues:getValues,
     getValue:getValue,
     addValue:addValue,
-    updateValue:updateValue
+    updateValue:updateValue,
+    deleteValue:deleteValue
 }

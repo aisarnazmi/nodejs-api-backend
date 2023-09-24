@@ -13,10 +13,10 @@ const getValues = (req, res) => {
 }
 
 const getValue = (req, res) => {
-    // IfamsService.getValue(req.params.value, res);
+    IfamsService.getValue(req.params.value, res);
 
     // example deal with multiple value condition
-    IfamsService.getValue(req.params.value, req.query.vote, res);
+    // IfamsService.getValue(req.params.value, req.query.vote, res);
 }
 
 const addValue = (req, res) => {
@@ -63,10 +63,15 @@ const updateValue = (req, res) => {
 
 }
 
+const deleteValue = (req, res) => {
+    IfamsService.deleteValue(req.params.id, res);
+}
+
 module.exports = {
     test:test,
     getValues:getValues,
     getValue:getValue,
     addValue:addValue,
-    updateValue:updateValue
+    updateValue:updateValue,
+    deleteValue:deleteValue
 }

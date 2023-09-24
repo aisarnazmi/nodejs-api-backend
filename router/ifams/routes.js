@@ -11,6 +11,7 @@ const initializeAPIs = app => {
     app.get(`/${API_NAME}/data/:value`, IfamsController.getValue);
     app.post(`/${API_NAME}/data`, IfamsController.addValue);
     app.put(`/${API_NAME}/data/:id`, IfamsController.updateValue);
+    app.delete(`/${API_NAME}/data/:id`, IfamsController.deleteValue);
 
 }
 
